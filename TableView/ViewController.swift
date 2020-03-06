@@ -15,8 +15,7 @@ class ViewController: UIViewController
     lazy var countryName : [Country] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCounties()
-        
+        countryName = DataStorage.getInstance().getAllCountries()
         // Do any additional setup after loading the view.
     }
 }
@@ -37,15 +36,30 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource
         cell?.textLabel?.text = country.name
         cell?.detailTextLabel?.text = country.capital
         cell?.imageView?.image = country.flag
-        
-        
-        
+            
         return cell!
     }
-    func loadCounties()
-    {
-        countryName.append(Country(name  : "India" , capital : " Delhi", flag : #imageLiteral(resourceName: "Image")))
-            //= ["India","China","USA","Japan","Sri Lanka","Pakistan","Afghanistan","Denmark","Bahamas","Nepal","German","Asia","Africa","Malaysia","France","Bermudes","Mexio","UK","Phillipines","Arabia"]
-        }
+    
+    // to set height of the row
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(100.0)
+    }
+    
+    // to set header and footer of tables
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Country Name"
+    }
+    
+    // to display selected row
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let c = countryName[indexPath.row]
+        print(c.name)
+    }
+       
+        //= ["India","China","USA","Japan","Sri Lanka","Pakistan","Afghanistan","Denmark","Bahamas","Nepal","German","Asia","Africa","Malaysia","France","Bermudes","Mexio","UK","Phillipines","Arabia"]
+
 }
 
